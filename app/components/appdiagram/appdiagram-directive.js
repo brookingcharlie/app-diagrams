@@ -33,8 +33,8 @@ function startMove(e) {
   document.documentElement.moveStartClientX = e.clientX;
   document.documentElement.moveStartClientY = e.clientY;
   document.documentElement.moveStartTarget = e.target;
-  document.documentElement.moveStartTargetX = e.target.getAttribute('x');
-  document.documentElement.moveStartTargetY = e.target.getAttribute('y');
+  document.documentElement.moveStartTargetX = parseInt(e.target.getAttribute('x'));
+  document.documentElement.moveStartTargetY = parseInt(e.target.getAttribute('y'));
   document.documentElement.setAttribute("onmousemove", "moveIt(event)");
 }
 
@@ -42,8 +42,8 @@ function moveIt(e) {
   var group = document.documentElement.moveStartTarget.parentNode;
   for (var i = 0; i < group.childNodes.length; i++) {
     if (!group.childNodes[i].setAttribute) continue;
-    group.childNodes[i].setAttribute("x", parseInt(document.documentElement.moveStartTargetX) + e.clientX - document.documentElement.moveStartClientX);
-    group.childNodes[i].setAttribute("y", parseInt(document.documentElement.moveStartTargetY) + e.clientY - document.documentElement.moveStartClientY);
+    group.childNodes[i].setAttribute("x", document.documentElement.moveStartTargetX + e.clientX - document.documentElement.moveStartClientX);
+    group.childNodes[i].setAttribute("y", document.documentElement.moveStartTargetY + e.clientY - document.documentElement.moveStartClientY);
   }
 }
 
