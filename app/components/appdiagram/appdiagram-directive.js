@@ -39,11 +39,13 @@ function startMove(e) {
 }
 
 function moveIt(e) {
+  var dX = e.clientX - document.documentElement.moveStartClientX;
+  var dY = e.clientY - document.documentElement.moveStartClientY;
   var group = document.documentElement.moveStartTarget.parentNode;
   for (var i = 0; i < group.childNodes.length; i++) {
     if (!group.childNodes[i].setAttribute) continue;
-    group.childNodes[i].setAttribute("x", document.documentElement.moveStartTargetX + e.clientX - document.documentElement.moveStartClientX);
-    group.childNodes[i].setAttribute("y", document.documentElement.moveStartTargetY + e.clientY - document.documentElement.moveStartClientY);
+    group.childNodes[i].setAttribute("x", document.documentElement.moveStartTargetX + dX);
+    group.childNodes[i].setAttribute("y", document.documentElement.moveStartTargetY + dY);
   }
 }
 
