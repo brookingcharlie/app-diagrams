@@ -1,3 +1,14 @@
-.appdiagram {border: 1px solid silver;}
-.pool-box {stroke-width: 2px; stroke: #777; fill: #eee;}
-.pool-title {padding: 10px; font-size: 13px; word-break: break-all;}
+.appdiagram {
+  border: 1px solid silver;
+}
+.pool-box {
+  stroke-width: 0;
+  fill: #ffab2b;
+}
+.pool-title {
+  color: white;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 650;
+  word-break: break-all;
+}
