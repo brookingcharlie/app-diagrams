@@ -1,16 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="400" class="appdiagram">
-  <g ng-repeat="pool in pools">
+  <g ng-repeat="pool in pools" app-draggable>
     <rect
-      onmousedown="startMove(event)"
-      onmouseup="endMove(event)"
       ng-attr-x="{{pool.x}}"
       ng-attr-y="{{pool.y}}"
       ng-attr-width="{{pool.width}}"
       ng-attr-height="{{pool.height}}"
       class="pool-box" />
     <foreignObject
-      onmousedown="startMove(event)"
-      onmouseup="endMove(event)"
       requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
       ng-attr-x="{{pool.x}}"
       ng-attr-y="{{pool.y}}"
