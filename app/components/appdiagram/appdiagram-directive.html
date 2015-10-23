@@ -5,7 +5,8 @@
       ng-attr-y="{{pool.y}}"
       ng-attr-width="{{pool.width}}"
       ng-attr-height="{{pool.height}}"
-      class="pool-box" />
+      class="pool-box"
+      style="fill: {{pool.color}};" />
     <foreignObject
       requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
       ng-attr-x="{{pool.x}}"
@@ -21,5 +22,6 @@
   <dd>x: <input ng-model="pool.x"></dd>
   <dd>y: <input ng-model="pool.y"></dd>
   <dd>width: <input ng-model="pool.width"></dd>
-  <dd ng-repeat-end>height: <input ng-model="pool.height"></dd>
+  <dd>height: <input ng-model="pool.height"></dd>
+  <dd ng-repeat-end>colour: <input ng-model="pool.color" colorpicker></dd>
 </dl>
