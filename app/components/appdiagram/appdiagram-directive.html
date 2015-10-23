@@ -16,3 +16,10 @@
     </foreignObject>
   </g>
 </svg>
+<dl>
+  <dt ng-repeat-start="pool in pools">{{pool.title}}</dt>
+  <dd>x: <input ng-model="pool.x"></dd>
+  <dd>y: <input ng-model="pool.y"></dd>
+  <dd>width: <input ng-model="pool.width"></dd>
+  <dd ng-repeat-end>height: <input ng-model="pool.height"></dd>
+</dl>
