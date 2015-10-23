@@ -10,7 +10,6 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     scope: {},
     templateUrl: 'components/appdiagram/appdiagram-directive.html',
     link: function(scope, element, attrs) {
-      scope.poolPadding = 10;
       scope.pools = [
         {
           title: 'awesome.app.dev.company.com.au',
