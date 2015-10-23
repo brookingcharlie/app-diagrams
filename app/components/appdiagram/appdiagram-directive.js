@@ -9,8 +9,10 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     restrict: 'E',
     scope: {},
     templateUrl: 'components/appdiagram/appdiagram-directive.html',
-    link: function(scope, element, attrs) {
-      scope.pools = [
+    controllerAs: 'ctrl',
+    controller: function () {
+      var that = this;
+      that.pools = [
         {
           title: 'awesome.app.dev.company.com.au',
           x: 20,
@@ -28,6 +30,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
           color: '#f6beab'
         }
       ];
+      that.selectedPool = that.pools[0];
     }
   };
 }])
@@ -35,9 +38,22 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
 .directive('appDraggable', [function() {
   return {
     restrict: 'A',
-    scope: {},
     link: function(scope, element, attrs) {
       Snap(element[0]).drag();
+    }
+  };
+}])
+
+.directive('appSelectable', [function() {
+  return {
+    restrict: 'A',
+    require: '^appDiagram',
+    link: function(scope, element, attrs, appDiagram) {
+      element.click(function(e) {
+        scope.$apply(function() {
+          appDiagram.selectedPool = scope.$eval(attrs.appSelectable);
+        });
+      });
     }
   };
 }]);

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="400" class="appdiagram">
-  <g ng-repeat="pool in pools" app-draggable>
+  <g ng-repeat="pool in ctrl.pools" app-draggable app-selectable="pool">
     <rect
       ng-attr-x="{{pool.x}}"
       ng-attr-y="{{pool.y}}"
@@ -17,11 +17,13 @@
     </foreignObject>
   </g>
 </svg>
-<dl>
-  <dt ng-repeat-start="pool in pools">{{pool.title}}</dt>
-  <dd>x: <input ng-model="pool.x"></dd>
-  <dd>y: <input ng-model="pool.y"></dd>
-  <dd>width: <input ng-model="pool.width"></dd>
-  <dd>height: <input ng-model="pool.height"></dd>
-  <dd ng-repeat-end>colour: <input ng-model="pool.color" colorpicker></dd>
-</dl>
+<div ng-show="ctrl.selectedPool">
+  <h2>{{ctrl.selectedPool.title}}</h2>
+  <ul>
+    <li>x: <input ng-model="ctrl.selectedPool.x"></li>
+    <li>y: <input ng-model="ctrl.selectedPool.y"></li>
+    <li>width: <input ng-model="ctrl.selectedPool.width"></li>
+    <li>height: <input ng-model="ctrl.selectedPool.height"></li>
+    <li>colour: <input ng-model="ctrl.selectedPool.color" colorpicker></li>
+  </ul>
+</div>
