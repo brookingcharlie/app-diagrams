@@ -1,6 +1,9 @@
 .appdiagram {
   border: 1px solid silver;
 }
+.pool {
+  cursor: pointer;
+}
 .pool-box {
   stroke-width: 0;
   fill: #ffab2b;
