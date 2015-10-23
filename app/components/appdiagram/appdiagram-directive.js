@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.version.version-directive', [])
+angular.module('myApp.appdiagram.appdiagram-directive', [])
 
 .directive('appDiagram', [function() {
   return {
