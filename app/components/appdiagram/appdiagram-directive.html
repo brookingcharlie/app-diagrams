@@ -19,11 +19,11 @@
 </svg>
 <div ng-show="ctrl.selectedPool">
   <h2>{{ctrl.selectedPool.title}}</h2>
-  <ul>
-    <li>x: <input ng-model="ctrl.selectedPool.x"></li>
-    <li>y: <input ng-model="ctrl.selectedPool.y"></li>
-    <li>width: <input ng-model="ctrl.selectedPool.width"></li>
-    <li>height: <input ng-model="ctrl.selectedPool.height"></li>
-    <li>colour: <input ng-model="ctrl.selectedPool.color" colorpicker></li>
-  </ul>
+  <table class="table table-bordered table-hover">
+    <tr><th>x</th><td><input ng-model="ctrl.selectedPool.x"></td><tr>
+    <tr><th>y</th><td><input ng-model="ctrl.selectedPool.y"></td><tr>
+    <tr><th>width</th><td><input ng-model="ctrl.selectedPool.width"></td><tr>
+    <tr><th>height</th><td><input ng-model="ctrl.selectedPool.height"></td><tr>
+    <tr><th>colour</th><td><input ng-model="ctrl.selectedPool.color" colorpicker></td></tr>
+  </table>
 </div>
