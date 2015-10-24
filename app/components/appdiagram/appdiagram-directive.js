@@ -64,7 +64,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     restrict: 'A',
     require: '^appDiagram',
     link: function(scope, element, attrs, appDiagram) {
-      element.click(function(e) {
+      element.mousedown(function(e) {
         scope.$apply(function() {
           appDiagram.selectedPool = scope.$eval(attrs.appSelectable);
         });
