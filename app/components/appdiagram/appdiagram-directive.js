@@ -39,7 +39,22 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      Snap(element[0]).drag();
+      var pool = scope.$eval(attrs.appDraggable);
+      var startX;
+      var startY;
+      var onstart = function(x, y, e) {
+        startX = pool.x;
+	startY = pool.y;
+      };
+      var onmove = function(dx, dy, x, y, e) {
+        scope.$apply(function() {
+          pool.x = startX + dx,
+	  pool.y = startY + dy;
+	});
+      };
+      var onend = function(e) {
+      };
+      Snap(element[0]).drag(onmove, onstart, onend);
     }
   };
 }])
