@@ -1,14 +1,14 @@
 .appdiagram {
   border: 1px solid silver;
 }
-.pool {
+.node {
   cursor: pointer;
 }
-.pool-box {
+.node-box {
   stroke-width: 0;
   fill: #ffab2b;
 }
-.pool-title {
+.node-title {
   color: white;
   padding: 10px;
   font-size: 13px;

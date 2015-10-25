@@ -28,9 +28,9 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     controllerAs: 'ctrl',
     controller: function () {
       var that = this;
-      that.pools = [
+      that.nodes = [
         {
-          title: 'awesome.app.dev.company.com.au',
+          title: 'really-long-name.of.awesome.application',
           x: 20,
           y: 20,
           width: 140,
@@ -38,7 +38,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
           color: '#5ec2f0'
         },
         {
-          title: 'questionable.app.prod-www.company.com.au',
+          title: 'another component of the same application',
           x: 20,
           y: 140,
           width: 140,
@@ -46,7 +46,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
           color: '#f6beab'
         }
       ];
-      that.selectedPool = that.pools[0];
+      that.selectedNode = that.nodes[0];
     }
   };
 }])
@@ -111,7 +111,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     link: function(scope, element, attrs, appDiagram) {
       element.mousedown(function(e) {
         scope.$apply(function() {
-          appDiagram.selectedPool = scope.$eval(attrs.appSelectable);
+          appDiagram.selectedNode = scope.$eval(attrs.appSelectable);
         });
       });
     }
