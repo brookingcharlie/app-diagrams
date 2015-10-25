@@ -80,10 +80,10 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
       var onmove = function(dx, dy, x, y, e) {
         scope.$apply(function() {
           if (resizingLeft || resizingRight) {
-            object.width = startWidth + (resizingLeft ? -1 : 1 ) * dx;
+            object.width = Math.max(resizeMargin * 2, startWidth + (resizingLeft ? -1 : 1 ) * dx);
           }
           if (resizingTop || resizingBottom) {
-            object.height = startHeight + (resizingTop ? -1 : 1 ) * dy;
+            object.height = Math.max(resizeMargin * 2, startHeight + (resizingTop ? -1 : 1 ) * dy);
           }
           if (resizingLeft || !(resizingRight || resizingTop || resizingBottom)) {
             object.x = startX + dx;
