@@ -54,33 +54,41 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     restrict: 'A',
     link: function(scope, element, attrs) {
       var object = scope.$eval(attrs.appDraggable);
-      var resizingX;
-      var resizingY;
-      var moving;
+
       var startX;
       var startY;
       var startWidth;
       var startHeight;
+
+      var resizingLeft;
+      var resizingRight;
+      var resizingTop;
+      var resizingBottom;
+
       var onstart = function(x, y, e) {
         startX = object.x;
 	startY = object.y;
         startWidth = object.width;
         startHeight = object.height;
+
         var elementPoint = getElementPoint(x, y, element);
-        resizingX = elementPoint.x >= (object.x + object.width - resizeMargin);
-        resizingY = elementPoint.y >= (object.y + object.height - resizeMargin);
-        moving = !(resizingX || resizingY);
+        resizingLeft = elementPoint.x <= (object.x + resizeMargin);
+        resizingRight = elementPoint.x >= (object.x + object.width - resizeMargin);
+        resizingTop = elementPoint.y <= (object.y + resizeMargin);
+        resizingBottom = elementPoint.y >= (object.y + object.height - resizeMargin);
       };
       var onmove = function(dx, dy, x, y, e) {
         scope.$apply(function() {
-          if (resizingX) {
-            object.width = startWidth + dx;
+          if (resizingLeft || resizingRight) {
+            object.width = startWidth + (resizingLeft ? -1 : 1 ) * dx;
           }
-          if (resizingY) {
-            object.height = startHeight + dy;
+          if (resizingTop || resizingBottom) {
+            object.height = startHeight + (resizingTop ? -1 : 1 ) * dy;
           }
-          if (moving) {
-            object.x = startX + dx,
+          if (resizingLeft || !(resizingRight || resizingTop || resizingBottom)) {
+            object.x = startX + dx;
+          }
+          if (resizingTop || !(resizingLeft || resizingRight || resizingBottom)) {
 	    object.y = startY + dy;
           }
 	});
