@@ -1,22 +1,24 @@
 'use strict';
 
-var resizeMargin = 15;
-
-// Transform (x, y) screen coordinates to be relative to SVG element.
-// For explanation, see <http://stackoverflow.com/a/5223921>.
-function getElementPoint(x, y, element) {
-  var svg = element[0].ownerSVGElement;
-  var screenPoint = svg.createSVGPoint();
-  screenPoint.x = x;
-  screenPoint.y = y;
-  var svgPoint = screenPoint.matrixTransform(svg.getScreenCTM().inverse());
-  var svgToElement = svg.getTransformToElement(element[0]);
-  return svgPoint.matrixTransform(svgToElement);
-}
-
 angular.module('myApp.appdiagram.appdiagram-directive', [
   'colorpicker.module'
 ])
+
+.service('appElementPointTransformer', function() {
+  return {
+    // Transform (x, y) screen coordinates to be relative to SVG element.
+    // For explanation, see <http://stackoverflow.com/a/5223921>.
+    transform: function(x, y, element) {
+      var svg = element[0].ownerSVGElement;
+      var screenPoint = svg.createSVGPoint();
+      screenPoint.x = x;
+      screenPoint.y = y;
+      var svgPoint = screenPoint.matrixTransform(svg.getScreenCTM().inverse());
+      var svgToElement = svg.getTransformToElement(element[0]);
+      return svgPoint.matrixTransform(svgToElement);
+    }
+  };
+})
 
 .directive('appDiagram', [function() {
   return {
@@ -49,10 +51,12 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
   };
 }])
 
-.directive('appDraggable', [function() {
+.directive('appDraggable', ['appElementPointTransformer', function(appElementPointTransformer) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
+      var resizeMargin = 15;
+
       var object = scope.$eval(attrs.appDraggable);
 
       var startX;
@@ -71,7 +75,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
         startWidth = object.width;
         startHeight = object.height;
 
-        var elementPoint = getElementPoint(x, y, element);
+        var elementPoint = appElementPointTransformer.transform(x, y, element);
         resizingLeft = elementPoint.x <= (object.x + resizeMargin);
         resizingRight = elementPoint.x >= (object.x + object.width - resizeMargin);
         resizingTop = elementPoint.y <= (object.y + resizeMargin);
