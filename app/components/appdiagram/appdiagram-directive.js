@@ -61,15 +61,8 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
 
       var object = scope.$eval(attrs.appDraggable);
 
-      var startX;
-      var startY;
-      var startWidth;
-      var startHeight;
-
-      var resizingLeft;
-      var resizingRight;
-      var resizingTop;
-      var resizingBottom;
+      var startX, startY, startWidth, startHeight;
+      var resizingLeft, resizingRight, resizingTop, resizingBottom;
 
       var onstart = function(x, y, e) {
         startX = object.x;
@@ -85,20 +78,26 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
       };
       var onmove = function(dx, dy, x, y, e) {
         scope.$apply(function() {
+          var inputWidth = startWidth + (resizingLeft ? -1 : 1 ) * dx;
+          var inputHeight = startHeight + (resizingTop ? -1 : 1 ) * dy;
+          var inputX = startX + dx;
+          var inputY = startY + dy;
+
           var maxX = resizingLeft ? startX + startWidth - minWidth : Number.MAX_VALUE;
           var maxY = resizingTop ? startY + startHeight - minHeight : Number.MAX_VALUE;
           var justMoving = !(resizingLeft || resizingRight || resizingTop || resizingBottom);
+
           if (resizingLeft || resizingRight) {
-            object.width = Math.max(minWidth, startWidth + (resizingLeft ? -1 : 1 ) * dx);
+            object.width = Math.max(minWidth, inputWidth);
           }
           if (resizingTop || resizingBottom) {
-            object.height = Math.max(minWidth, startHeight + (resizingTop ? -1 : 1 ) * dy);
+            object.height = Math.max(minWidth, inputHeight);
           }
           if (resizingLeft || justMoving) {
-            object.x = Math.min(maxX, startX + dx);
+            object.x = Math.min(maxX, inputX);
           }
           if (resizingTop || justMoving) {
-            object.y = Math.min(maxY, startY + dy);
+            object.y = Math.min(maxY, inputY);
           }
         });
       };
