@@ -82,28 +82,23 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
           var absoluteMaxX = svg.width.baseVal.value;
           var absoluteMaxY = svg.height.baseVal.value;
 
-          var maxX = resizingLeft ? startX + startWidth - minWidth : absoluteMaxX - startWidth;
-          var maxY = resizingTop ? startY + startHeight - minHeight : absoluteMaxY - startHeight;
-          var maxWidth = resizingLeft ? (startX + startWidth) : absoluteMaxX - startX;
-          var maxHeight = resizingTop ? (startY + startHeight) : absoluteMaxY - startY;
-
-          var justMoving = !(resizingLeft || resizingRight || resizingTop || resizingBottom);
-
+          var maxWidth = resizingLeft ? startX + startWidth : absoluteMaxX - startX;
+          var maxHeight = resizingTop ? startY + startHeight : absoluteMaxY - startY;
           if (resizingLeft || resizingRight) {
-            var inputWidth = startWidth + (resizingLeft ? -1 : 1 ) * dx;
-            object.width = Math.max(minWidth, Math.min(maxWidth, inputWidth));
+            object.width = Math.max(minWidth, Math.min(maxWidth, startWidth + (resizingLeft ? -1 : 1 ) * dx));
           }
           if (resizingTop || resizingBottom) {
-            var inputHeight = startHeight + (resizingTop ? -1 : 1 ) * dy;
-            object.height = Math.max(minWidth, Math.min(maxHeight, inputHeight));
+            object.height = Math.max(minWidth, Math.min(maxHeight, startHeight + (resizingTop ? -1 : 1 ) * dy));
           }
+
+          var maxX = resizingLeft ? startX + startWidth - minWidth : absoluteMaxX - startWidth;
+          var maxY = resizingTop ? startY + startHeight - minHeight : absoluteMaxY - startHeight;
+          var justMoving = !(resizingLeft || resizingRight || resizingTop || resizingBottom);
           if (resizingLeft || justMoving) {
-            var inputX = startX + dx;
-            object.x = Math.max(0, Math.min(maxX, inputX));
+            object.x = Math.max(0, Math.min(maxX, startX + dx));
           }
           if (resizingTop || justMoving) {
-            var inputY = startY + dy;
-            object.y = Math.max(0, Math.min(maxY, inputY));
+            object.y = Math.max(0, Math.min(maxY, startY + dy));
           }
         });
       };
