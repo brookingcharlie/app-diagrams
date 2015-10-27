@@ -78,25 +78,31 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
       };
       var onmove = function(dx, dy, x, y, e) {
         scope.$apply(function() {
-          var inputWidth = startWidth + (resizingLeft ? -1 : 1 ) * dx;
-          var inputHeight = startHeight + (resizingTop ? -1 : 1 ) * dy;
-          var inputX = startX + dx;
-          var inputY = startY + dy;
+          var svg = element[0].ownerSVGElement;
+          var absoluteMaxX = svg.width.baseVal.value;
+          var absoluteMaxY = svg.height.baseVal.value;
 
-          var maxX = resizingLeft ? startX + startWidth - minWidth : Number.MAX_VALUE;
-          var maxY = resizingTop ? startY + startHeight - minHeight : Number.MAX_VALUE;
+          var maxX = resizingLeft ? startX + startWidth - minWidth : absoluteMaxX - startWidth;
+          var maxY = resizingTop ? startY + startHeight - minHeight : absoluteMaxY - startHeight;
+          var maxWidth = resizingLeft ? (startX + startWidth) : absoluteMaxX - startX;
+          var maxHeight = resizingTop ? (startY + startHeight) : absoluteMaxY - startY;
+
           var justMoving = !(resizingLeft || resizingRight || resizingTop || resizingBottom);
 
           if (resizingLeft || resizingRight) {
-            object.width = Math.max(minWidth, inputWidth);
+            var inputWidth = startWidth + (resizingLeft ? -1 : 1 ) * dx;
+            object.width = Math.max(minWidth, Math.min(maxWidth, inputWidth));
           }
           if (resizingTop || resizingBottom) {
-            object.height = Math.max(minWidth, inputHeight);
+            var inputHeight = startHeight + (resizingTop ? -1 : 1 ) * dy;
+            object.height = Math.max(minWidth, Math.min(maxHeight, inputHeight));
           }
           if (resizingLeft || justMoving) {
+            var inputX = startX + dx;
             object.x = Math.max(0, Math.min(maxX, inputX));
           }
           if (resizingTop || justMoving) {
+            var inputY = startY + dy;
             object.y = Math.max(0, Math.min(maxY, inputY));
           }
         });
