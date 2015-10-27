@@ -94,10 +94,10 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
             object.height = Math.max(minWidth, inputHeight);
           }
           if (resizingLeft || justMoving) {
-            object.x = Math.min(maxX, inputX);
+            object.x = Math.max(0, Math.min(maxX, inputX));
           }
           if (resizingTop || justMoving) {
-            object.y = Math.min(maxY, inputY);
+            object.y = Math.max(0, Math.min(maxY, inputY));
           }
         });
       };
