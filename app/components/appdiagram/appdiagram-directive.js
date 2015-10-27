@@ -56,6 +56,8 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
     restrict: 'A',
     link: function(scope, element, attrs) {
       var resizeMargin = 15;
+      var minWidth = resizeMargin * 2;
+      var minHeight = resizeMargin * 2;
 
       var object = scope.$eval(attrs.appDraggable);
 
@@ -71,7 +73,7 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
 
       var onstart = function(x, y, e) {
         startX = object.x;
-	startY = object.y;
+        startY = object.y;
         startWidth = object.width;
         startHeight = object.height;
 
@@ -83,19 +85,22 @@ angular.module('myApp.appdiagram.appdiagram-directive', [
       };
       var onmove = function(dx, dy, x, y, e) {
         scope.$apply(function() {
+          var maxX = resizingLeft ? startX + startWidth - minWidth : Number.MAX_VALUE;
+          var maxY = resizingTop ? startY + startHeight - minHeight : Number.MAX_VALUE;
+          var justMoving = !(resizingLeft || resizingRight || resizingTop || resizingBottom);
           if (resizingLeft || resizingRight) {
-            object.width = Math.max(resizeMargin * 2, startWidth + (resizingLeft ? -1 : 1 ) * dx);
+            object.width = Math.max(minWidth, startWidth + (resizingLeft ? -1 : 1 ) * dx);
           }
           if (resizingTop || resizingBottom) {
-            object.height = Math.max(resizeMargin * 2, startHeight + (resizingTop ? -1 : 1 ) * dy);
+            object.height = Math.max(minWidth, startHeight + (resizingTop ? -1 : 1 ) * dy);
           }
-          if (resizingLeft || !(resizingRight || resizingTop || resizingBottom)) {
-            object.x = startX + dx;
+          if (resizingLeft || justMoving) {
+            object.x = Math.min(maxX, startX + dx);
           }
-          if (resizingTop || !(resizingLeft || resizingRight || resizingBottom)) {
-	    object.y = startY + dy;
+          if (resizingTop || justMoving) {
+            object.y = Math.min(maxY, startY + dy);
           }
-	});
+        });
       };
       var onend = function(e) {
       };
