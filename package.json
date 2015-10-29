@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
+  "name": "app-diagrams",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "View/edit application architecture diagrams using a graphical web interface.",
+  "repository": "https://github.com/brookingcharlie/app-diagrams",
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",
