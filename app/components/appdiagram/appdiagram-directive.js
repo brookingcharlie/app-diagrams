@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.appdiagram.appdiagram-directive', [
+angular.module('app.appdiagram.appdiagram-directive', [
   'colorpicker.module'
 ])
 

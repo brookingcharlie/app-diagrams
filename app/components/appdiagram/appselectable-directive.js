@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp.appdiagram.appselectable-directive', [
-  'myApp.appdiagram.appdiagram-directive',
+angular.module('app.appdiagram.appselectable-directive', [
+  'app.appdiagram.appdiagram-directive',
 ])
 
 .directive('appSelectable', [function() {

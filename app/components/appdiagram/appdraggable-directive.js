@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp.appdiagram.appdraggable-directive', [
-  'myApp.appdiagram.appelementpointtransformer-service'
+angular.module('app.appdiagram.appdraggable-directive', [
+  'app.appdiagram.appelementpointtransformer-service'
 ])
 
 .directive('appDraggable', ['appElementPointTransformer', function(appElementPointTransformer) {

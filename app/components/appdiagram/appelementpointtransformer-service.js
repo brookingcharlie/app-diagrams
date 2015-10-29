@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.appdiagram.appelementpointtransformer-service', [
+angular.module('app.appdiagram.appelementpointtransformer-service', [
 ])
 
 .service('appElementPointTransformer', function() {

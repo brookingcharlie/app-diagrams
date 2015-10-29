@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('myApp', ['myApp.appdiagram']);
+angular.module('app', ['app.appdiagram']);
